@@ -3,7 +3,7 @@ Tableau Data Extract Output Plugin
 
 A big thanks to my employer OpenBI (http://www.openbi.com) for allowing me to open source and make this plugin available.
 
-The Tableau Data Extract plugin for Pentaho Data Integration allows you to use Pentaho's ETL capabilities to generate a Tableau Data Extract (tde) file.  You can then publish the TDE file to a Tableau server or use the TDE in Tableau Desktop.
+The Tableau Data Extract plugin for Pentaho Data Integration allows you to use Pentaho's ETL capabilities to blend data from multiple sources into a single Tableau Data Extract (tde) file.  You can then publish the TDE file to a Tableau server or use the TDE in Tableau Desktop.
 
 A Tableau Data Extract file is a compressed file specially optimized for Tableau performance.  If you are familiar with Tableau, a TDE is what Tableau creates when you tell Tableau to perform extracts from a data source instead of connecting live.  This plugin skips that step and goes directly to the TDE file format.
 
