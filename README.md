@@ -21,7 +21,7 @@ Installation
 
 **Using the Pentaho Marketplace**
 
-Due to licensing concerns the Tableau Data Extract API is not distributed through the Pentaho Marketplace and must be separately downloaded and installed.
+Due to licensing the Tableau Data Extract API is not distributed through the Pentaho Marketplace and must be separately downloaded and installed.
 
 1. Install the Tableau Data Exract Output plugin from the Pentaho marketplace.
 2. Download the "C/C++/Java" data extract API from Tableau.  Choose the 32 bit or 64 bit version based on your Java JDK. - http://www.tableausoftware.com/data-extract-api
@@ -32,14 +32,14 @@ Due to licensing concerns the Tableau Data Extract API is not distributed throug
   1. Right click on "My Computer" and go to "Properties"  
   2. Select "Advanced system settings"
   3. Click the "Environment Variables" button.
-  4. Under "System variables" select the "Path" variable and clikc "Edit"
+  4. Under "System variables" select the "Path" variable and click "Edit"
   5. At the end of the "Variable value" add a ; and the path to the bin directory of the downloaded zip.
   6. Click OK
 7. Restart PDI
 
 **Manual Install**
 
-Due to licensing concerns the Tableua Data Extract API is not distributed through the zip and must be separately downloaded and installed.
+Due to licensing the Tableua Data Extract API is not distributed through the zip and must be separately downloaded and installed.
 
 1. Unzip TDEOutputPlugin.zip to ${PDI_HOME}/plugins/steps/TDEOutputPlugin
 2. Follow steps 2 and above from the "Using the Pentaho Marketplace" instructions
