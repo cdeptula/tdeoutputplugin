@@ -46,8 +46,6 @@ public class TDEField implements Cloneable
 
 	private int tdeType;
 	
-	private String separatorRegex;
-	
 	private static List<String> tdeTypeNames = Arrays.asList("Boolean",
 				"Character String",
 				"Date",
@@ -88,11 +86,10 @@ public class TDEField implements Cloneable
 	*/
 	
 
-	public TDEField(String name, int tdeType, String durationSeparator)
+	public TDEField(String name, int tdeType)
 	{
 		this.name = name;
 		this.tdeType = tdeType;
-		this.separatorRegex=durationSeparator;
 	}
 
 	public TDEField()
@@ -152,16 +149,6 @@ public class TDEField implements Cloneable
 		return name;
 	}
 	
-	public String getDurationSeparator()
-	{
-		return separatorRegex;
-	}
-	
-	public void setDurationSeparator(String durationSeparator)
-	{
-		this.separatorRegex=durationSeparator;
-	}
-
 	public int getTdeType()
 	{
 		return tdeType;

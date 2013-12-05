@@ -562,7 +562,7 @@ public class TDEOutputDialog extends BaseStepDialog implements StepDialogInterfa
 		
 		setButtonPositions(new Button[] { wGet}, margin, null);
 		
-		final int FieldsCols=4;
+		final int FieldsCols=3;
 		final int FieldsRows=input.getOutputFields().length;
 		
 		// Prepare a list of possible formats...
@@ -576,7 +576,6 @@ public class TDEOutputDialog extends BaseStepDialog implements StepDialogInterfa
 		colinf[0]=new ColumnInfo(BaseMessages.getString(PKG, "TDEOutputDialog.NameColumn.Column"),       ColumnInfo.COLUMN_TYPE_CCOMBO, new String[] { "" }, false);
 		colinf[1]=new ColumnInfo(BaseMessages.getString(PKG, "TDEOutputDialog.TDENewNameColumn.Column"),       ColumnInfo.COLUMN_TYPE_TEXT,false );
 		colinf[2]=new ColumnInfo(BaseMessages.getString(PKG, "TDEOutputDialog.TDETypeColumn.Column"),       ColumnInfo.COLUMN_TYPE_CCOMBO, TDEField.getTypes(),false );
-		colinf[3]=new ColumnInfo(BaseMessages.getString(PKG, "TDEOutputDialog.DurationSeparatorColumn.Column"),ColumnInfo.COLUMN_TYPE_TEXT,false);
 		
 		wFields=new TableView(transMeta, wFieldsComp, 
 						      SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI, 
@@ -819,8 +818,6 @@ public class TDEOutputDialog extends BaseStepDialog implements StepDialogInterfa
 			if (field.getName()!=null) item.setText(1, field.getName());
 			if (field.getNewName()!=null) item.setText(2, field.getNewName());
 			item.setText(3, Const.NVL(field.getTdeTypeDesc(),"-"));
-			if(field.getDurationSeparator()!=null) item.setText(4,field.getDurationSeparator());
-			
 		}
 		
 		wFields.optWidth(true);
@@ -865,7 +862,6 @@ public class TDEOutputDialog extends BaseStepDialog implements StepDialogInterfa
 			field.setName( item.getText(1) );
 			field.setNewName(item.getText(2));
 			field.setTdeType( item.getText(3) );
-			field.setDurationSeparator(item.getText(4));
 			tfoi.getOutputFields()[i]  = field;
 		}
 	}

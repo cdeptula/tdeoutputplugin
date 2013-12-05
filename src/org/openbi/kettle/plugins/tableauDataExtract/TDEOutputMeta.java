@@ -351,8 +351,6 @@ public class TDEOutputMeta extends BaseStepMeta  implements StepMetaInterface
 				outputFields[i].setName( XMLHandler.getTagValue(fnode, "name") );
 				outputFields[i].setNewName( XMLHandler.getTagValue(fnode, "new_name") );
 				outputFields[i].setTdeType( XMLHandler.getTagValue(fnode, "type") );
-				outputFields[i].setDurationSeparator( XMLHandler.getTagValue(fnode, "separator") );
-				
 			}		
 		}
 		catch(Exception e)
@@ -531,7 +529,6 @@ public class TDEOutputMeta extends BaseStepMeta  implements StepMetaInterface
 				retval.append("        ").append(XMLHandler.addTagValue("name",      field.getName()));
 				retval.append("        ").append(XMLHandler.addTagValue("new_name",      field.getNewName()));
 				retval.append("        ").append(XMLHandler.addTagValue("type",      field.getTdeTypeDesc()));
-				retval.append("        ").append(XMLHandler.addTagValue("separator",      field.getDurationSeparator()));
 				retval.append("      </field>").append(Const.CR);
 			}
 		}
@@ -576,8 +573,6 @@ public class TDEOutputMeta extends BaseStepMeta  implements StepMetaInterface
 			    outputFields[i].setName(    		rep.getStepAttributeString (id_step, i, "field_name") );
 			    outputFields[i].setNewName(    		rep.getStepAttributeString (id_step, i, "field_new_name") );
 			    outputFields[i].setTdeType( 			rep.getStepAttributeString (id_step, i, "field_type") );
-			    outputFields[i].setDurationSeparator( 			rep.getStepAttributeString (id_step, i, "field_separator") );
-			   
 			}
 			
 		}
@@ -612,8 +607,6 @@ public class TDEOutputMeta extends BaseStepMeta  implements StepMetaInterface
 				rep.saveStepAttribute(id_transformation, id_step, i, "field_name",      field.getName());
 				rep.saveStepAttribute(id_transformation, id_step, i, "field_new_name",      field.getNewName());
 				rep.saveStepAttribute(id_transformation, id_step, i, "field_type",      field.getTdeTypeDesc());
-				rep.saveStepAttribute(id_transformation, id_step, i, "field_separator",      field.getDurationSeparator());
-				
 			}
         }
 		catch(Exception e)

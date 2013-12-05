@@ -25,7 +25,6 @@ package org.openbi.kettle.plugins.tableauDataExtract;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.vfs.FileObject;
 import org.pentaho.di.core.ResultFile;
 import org.pentaho.di.core.exception.KettleException;
@@ -137,10 +136,22 @@ public class TDEOutput extends BaseStep implements StepInterface
 				} else if (meta.getOutputFields()[i].getTdeType()==TDEField.CHAR_STRING){
 					data.row.setCharString(i,inputRowMeta.getString(r,fieldIndex));
 				} else if (meta.getOutputFields()[i].getTdeType()==TDEField.DURATION){
-					String[] durationParts = inputRowMeta.getString(r,fieldIndex).split(meta.getOutputFields()[i].getDurationSeparator());
-					if(durationParts.length!=5)
-						logError("Invalid duration "+inputRowMeta.getString(r,i)+" must be in format days"+meta.getOutputFields()[i].getDurationSeparator()+"hours"+meta.getOutputFields()[i].getDurationSeparator()+"minutes"+meta.getOutputFields()[i].getDurationSeparator()+"seconds"+meta.getOutputFields()[i].getDurationSeparator()+"frac");
-					data.row.setDuration(i, Integer.parseInt(durationParts[0]), Integer.parseInt(durationParts[1]), Integer.parseInt(durationParts[2]), Integer.parseInt(durationParts[3]), Integer.parseInt(durationParts[4]));
+					Long totalmilliseconds=inputRowMeta.getInteger(r, fieldIndex);
+					int[] dateparts={1000*60*60*24,1000*60*60,1000*60,1000,1};
+					Long[] durationParts=new Long[5];
+					for (int e=0 ; e<dateparts.length ;e++)
+					{
+						durationParts[e]=totalmilliseconds/(long)dateparts[e];
+						Long subtract=durationParts[e]*(long)dateparts[e];
+						totalmilliseconds=totalmilliseconds-subtract;
+					}
+					
+					if(totalmilliseconds!=0)
+					{
+						throw new KettleException("Failed to parse duration");
+					}
+					
+					data.row.setDuration(i,durationParts[0].intValue(), durationParts[1].intValue(), durationParts[2].intValue(), durationParts[3].intValue(), durationParts[4].intValue());
 				}
 			}
 			data.table.insert(data.row);
@@ -274,11 +285,12 @@ public class TDEOutput extends BaseStep implements StepInterface
 	
 	public boolean init(StepMetaInterface smi, StepDataInterface sdi)
 	{
-		if(!SystemUtils.IS_OS_WINDOWS)
+	/*	if(!SystemUtils.IS_OS_WINDOWS)
 		{
 			logError("Not running on Windows.  Tableau Data Output step only works on Windows machines.");
 			return false;
 		}
+		*/
 		meta=(TDEOutputMeta)smi;
 		data=(TDEOutputData)sdi;
 
