@@ -1,8 +1,9 @@
 /*******************************************************************************
  *
- * Pentaho Data Integration
+ * Tableau Data Extract Plugin for Pentaho Data Integration
  *
- * Copyright (C) 2002-2012 by Pentaho : http://www.pentaho.com
+ * Author: Chris Deptula
+ * https://github.com/cdeptula/tdeoutputplugin
  *
  *******************************************************************************
  *
@@ -52,7 +53,7 @@ import org.pentaho.di.trans.step.StepMetaInterface;
 import org.w3c.dom.Node;
 
 /*
- * Created on 4-apr-2003
+ * Created on 2013-12-09
  *
  */
 public class TDEOutputMeta extends BaseStepMeta  implements StepMetaInterface

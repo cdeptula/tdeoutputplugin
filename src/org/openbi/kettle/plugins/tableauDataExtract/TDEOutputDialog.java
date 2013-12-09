@@ -1,8 +1,9 @@
 /*******************************************************************************
  *
- * Pentaho Data Integration
+ * Tableau Data Extract Plugin for Pentaho Data Integration
  *
- * Copyright (C) 2002-2012 by Pentaho : http://www.pentaho.com
+ * Author: Chris Deptula
+ * https://github.com/cdeptula/tdeoutputplugin
  *
  *******************************************************************************
  *

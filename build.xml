@@ -45,7 +45,7 @@
         description="compile the source " >
 	
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${build}">
+    <javac debug="on" debuglevel="lines" includeantruntime="false" srcdir="${src}" destdir="${build}">
 		<classpath>
 			<fileset dir="${tdeclasspath}/" >
 				<include name="dataextract.jar"/>
@@ -76,6 +76,8 @@
 	<copy file="tde.png" todir="${dist}/TDEOutputPlugin"/>
 	<copy file="${tdeclasspath}/dataextract.jar" todir="${dist}/TDEOutputPlugin"/>
 	<copy file="${tdeclasspath}/jna.jar" todir="${dist}/TDEOutputPlugin"/>
+	<copy file="LICENSE" todir="${dist}/TDEOutputPlugin"/>
+	<copy file="README.md" todir="${dist}/TDEOutputPlugin"/>
 	<echoxml file="${dist}/TDEOutputPlugin/version.xml">
 		<version branch="${branch}" buildId="${buildnumber}">${version}</version>
 	</echoxml>

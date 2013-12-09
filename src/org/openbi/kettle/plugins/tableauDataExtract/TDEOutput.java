@@ -1,8 +1,9 @@
 /*******************************************************************************
  *
- * Pentaho Data Integration
+ * Tableau Data Extract Plugin for Pentaho Data Integration
  *
- * Copyright (C) 2002-2012 by Pentaho : http://www.pentaho.com
+ * Author: Chris Deptula
+ * https://github.com/cdeptula/tdeoutputplugin
  *
  *******************************************************************************
  *
@@ -50,8 +51,8 @@ import com.tableausoftware.DataExtract.TableDefinition;
 /**
  * Converts input rows to text and then writes this text to one or more files.
  * 
- * @author Matt
- * @since 4-apr-2003
+ * @author Chris
+ * @since 2012-12-09
  */
 public class TDEOutput extends BaseStep implements StepInterface
 {

@@ -1,8 +1,9 @@
 /*******************************************************************************
  *
- * Pentaho Data Integration
+ * Tableau Data Extract Plugin for Pentaho Data Integration
  *
- * Copyright (C) 2002-2012 by Pentaho : http://www.pentaho.com
+ * Author: Chris Deptula
+ * https://github.com/cdeptula/tdeoutputplugin
  *
  *******************************************************************************
  *
@@ -33,8 +34,8 @@ import com.tableausoftware.DataExtract.Type;
 /**
  * Describes a single field in a text file
  * 
- * @author Matt
- * @since 11-05-2005
+ * @author Chris
+ * @since 2013-12-09
  * 
  */
 public class TDEField implements Cloneable
