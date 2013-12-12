@@ -10,16 +10,12 @@ A Tableau Data Extract file is a compressed file specially optimized for Tableau
 System Requirements
 -------------------
 
-- Windows
 - Pentaho Data Integration 4.3 and above
 - Tableau 8.0, 8.1
-
-The plugin only runs in Windows environments due to Tableau API limitations.
 
 Installation
 ------------
 
-**Using the Pentaho Marketplace**
 
 Due to licensing the Tableau Data Extract API is not distributed through the Pentaho Marketplace and must be separately downloaded and installed.
 
@@ -28,13 +24,8 @@ Due to licensing the Tableau Data Extract API is not distributed through the Pen
 3. Unzip the downloaded zip.
 4. For PDI 5.0 and above - Copy the contents of the Java directory to ${PDI_HOME}/plugins/steps/TDEOutputPlugin directory.
 5. For PDI 4.8 and below - Copy the contents of the Java6 directory to ${PDI_HOME}/plugins/steps/TDEOutputPlugin directory.
-6. Add the bin folder to your system path.  
-  1. Right click on "My Computer" and go to "Properties"  
-  2. Select "Advanced system settings"
-  3. Click the "Environment Variables" button.
-  4. Under "System variables" select the "Path" variable and click "Edit"
-  5. At the end of the "Variable value" add a ; and the path to the bin directory of the downloaded zip.
-  6. Click OK
+6. For Windows: Add the bin folder from the downloaded API to your system path.  
+7. For Linux: Add the lib folder from the downloaded API to the LD_LIBRARY_PATH variable.
 7. Restart PDI
 
 **Manual Install**
