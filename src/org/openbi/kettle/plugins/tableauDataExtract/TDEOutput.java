@@ -200,9 +200,11 @@ public class TDEOutput extends BaseStep implements StepInterface
 
     
     String filename = buildFilename(environmentSubstitute(baseFilename));
-    filename=filename.replace("/", "\\");
-    //Remove file:\\\ from file name.
-    if(filename.startsWith("file:\\\\\\")) filename=filename.substring(8);
+    //filename=filename.replace("/", "\\");
+    
+    if(filename.startsWith("file://")) filename=filename.substring(7);
+   
+    if(filename.toLowerCase().contains("c:/")) filename=filename.substring(filename.toLowerCase().indexOf("c:/"));
 
     try {
         // Check for parent folder creation only if the user asks for it
