@@ -92,6 +92,20 @@ public class TDEField implements Cloneable
 		this.name = name;
 		this.tdeType = tdeType;
 	}
+	
+	public TDEField(String name, String rename_to, String tdeType)
+	{
+		this.name=name;
+		this.newName=rename_to;
+		setTdeType(tdeType);
+	}
+	
+	public TDEField(String name, String rename_to, int tdeType)
+	{
+		this.name=name;
+		this.newName=rename_to;
+		this.tdeType=tdeType;
+	}
 
 	public TDEField()
 	{
