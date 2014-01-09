@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.vfs.FileObject;
+import org.pentaho.di.core.Const;
 import org.pentaho.di.core.ResultFile;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.exception.KettleFileException;
@@ -200,11 +201,19 @@ public class TDEOutput extends BaseStep implements StepInterface
 
     
     String filename = buildFilename(environmentSubstitute(baseFilename));
-    //filename=filename.replace("/", "\\");
     
-    if(filename.startsWith("file://")) filename=filename.substring(7);
-   
-    if(filename.toLowerCase().contains("c:/")) filename=filename.substring(filename.toLowerCase().indexOf("c:/"));
+    //Tableau is very picky about file names.  They may not start with file://
+    if( !Const.isWindows() )
+    {
+    	if( filename.startsWith("file://") ) filename=filename.substring(7);
+    }
+    
+    //For Windows Tableau requires filenames to use \ instead of /
+    if( Const.isWindows() )
+    {
+    	if( filename.startsWith("file:///") ) filename=filename.substring(8);
+    	filename=filename.replace("/", "\\");
+    }
 
     try {
         // Check for parent folder creation only if the user asks for it
@@ -288,12 +297,6 @@ public class TDEOutput extends BaseStep implements StepInterface
 	
 	public boolean init(StepMetaInterface smi, StepDataInterface sdi)
 	{
-	/*	if(!SystemUtils.IS_OS_WINDOWS)
-		{
-			logError("Not running on Windows.  Tableau Data Output step only works on Windows machines.");
-			return false;
-		}
-		*/
 		meta=(TDEOutputMeta)smi;
 		data=(TDEOutputData)sdi;
 
