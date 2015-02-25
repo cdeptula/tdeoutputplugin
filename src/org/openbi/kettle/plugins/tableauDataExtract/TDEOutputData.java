@@ -23,6 +23,13 @@
 
 package org.openbi.kettle.plugins.tableauDataExtract;
 
+import com.tableausoftware.DataExtract.Extract;
+import com.tableausoftware.DataExtract.Table;
+import com.tableausoftware.DataExtract.TableDefinition;
+import org.pentaho.di.core.row.RowMetaInterface;
+import org.pentaho.di.trans.step.BaseStepData;
+import org.pentaho.di.trans.step.StepDataInterface;
+
 import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -30,14 +37,6 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.pentaho.di.core.row.RowMetaInterface;
-import org.pentaho.di.trans.step.BaseStepData;
-import org.pentaho.di.trans.step.StepDataInterface;
-
-import com.tableausoftware.DataExtract.Extract;
-import com.tableausoftware.DataExtract.Table;
-import com.tableausoftware.DataExtract.TableDefinition;
 
 /**
  * @author Chris
@@ -100,6 +99,8 @@ public class TDEOutputData extends BaseStepData implements StepDataInterface
        
         cmdProc = null;
         oneFileOpened=false;
+
+        extractOpened = false;
         
        
 	}

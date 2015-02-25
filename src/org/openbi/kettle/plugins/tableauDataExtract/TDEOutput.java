@@ -23,9 +23,9 @@
 
 package org.openbi.kettle.plugins.tableauDataExtract;
 
-import java.util.Calendar;
-import java.util.Date;
-
+import com.tableausoftware.DataExtract.Collation;
+import com.tableausoftware.DataExtract.Extract;
+import com.tableausoftware.DataExtract.TableDefinition;
 import org.apache.commons.vfs.FileObject;
 import org.pentaho.di.core.Const;
 import org.pentaho.di.core.ResultFile;
@@ -44,9 +44,8 @@ import org.pentaho.di.trans.step.StepInterface;
 import org.pentaho.di.trans.step.StepMeta;
 import org.pentaho.di.trans.step.StepMetaInterface;
 
-import com.tableausoftware.DataExtract.Collation;
-import com.tableausoftware.DataExtract.Extract;
-import com.tableausoftware.DataExtract.TableDefinition;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -188,9 +187,12 @@ public class TDEOutput extends BaseStep implements StepInterface
 			}
 			
 			
-		} catch (Exception ex) {
+		} catch (UnsatisfiedLinkError ex) {
+            throw new KettleException( "Error configuring extract.  This usually means an error in the Tableau API installation.  Please consult the readme." );
+        }
+        catch (Exception ex) {
 			
-			throw new KettleException(ex.getLocalizedMessage());
+			throw new KettleException( ex );
 		}
 	}
 	
@@ -249,7 +251,8 @@ public class TDEOutput extends BaseStep implements StepInterface
           logDetailed("Opened new extract with name [" + filename + "]");
       
     } catch (Exception e) {
-      throw new KettleException("Error opening extract : " + e.toString());
+      throw new KettleException("Error opening extract : " + e.toString() + "\n" +
+          "This usually means that the extract was not installed correctly.  Please consult the readme.", e );
     }
 
     
@@ -275,11 +278,14 @@ public class TDEOutput extends BaseStep implements StepInterface
 				data.tableDef.close();
 			if(data.extractOpened && data.extract!=null)
 				data.extract.close();
+            data.tableDef = null;
+            data.extract = null;
+            data.extractOpened = false;
 			retval=true;
 		}
 		catch(Exception e)
 		{
-			logError("Exception trying to close file: " + e.toString());
+			logError("Exception trying to close file: " + e.toString(), e );
 			setErrors(1);
 			retval = false;
 		}
