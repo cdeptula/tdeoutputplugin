@@ -11,7 +11,7 @@ System Requirements
 -------------------
 
 - Pentaho Data Integration 4.3 and above
-- Tableau 8.0, 8.1
+- Tableau 8.0 and above
 
 Installation
 ------------
