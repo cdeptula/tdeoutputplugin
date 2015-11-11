@@ -23,14 +23,16 @@
 
 package org.openbi.kettle.plugins.tableauDataExtract;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.row.ValueMetaInterface;
 import org.pentaho.di.trans.step.StepInjectionMetaEntry;
+import org.pentaho.di.trans.step.StepInjectionUtil;
+import org.pentaho.di.trans.step.StepMetaInjectionEntryInterface;
 import org.pentaho.di.trans.step.StepMetaInjectionInterface;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This takes care of the external metadata injection into the TDEOutputMeta class
@@ -39,7 +41,7 @@ import org.pentaho.di.trans.step.StepMetaInjectionInterface;
  */
 public class TDEOutputMetaInjection implements StepMetaInjectionInterface {
 
-  private enum Entry {
+  private enum Entry implements StepMetaInjectionEntryInterface {
 
     EXTRACT_NAME( ValueMetaInterface.TYPE_STRING, "The name of the extract file" ), APPEND(
       ValueMetaInterface.TYPE_STRING, "Append to the existing file? (Y/N)" ), CREATE_PARENT_FOLDER(
@@ -230,6 +232,33 @@ public class TDEOutputMetaInjection implements StepMetaInjectionInterface {
       }
       meta.setOutputFields(tf);
     }
+  }
+
+  public List<StepInjectionMetaEntry> extractStepMetadataEntries() {
+    List<StepInjectionMetaEntry> list = new ArrayList<StepInjectionMetaEntry>();
+
+    list.add( StepInjectionUtil.getEntry( Entry.EXTRACT_NAME, meta.getFileName() ) );
+    list.add( StepInjectionUtil.getEntry( Entry.APPEND, meta.isFileAppended() ) );
+    list.add( StepInjectionUtil.getEntry( Entry.CREATE_PARENT_FOLDER, meta.isCreateParentFolder() ) );
+    list.add( StepInjectionUtil.getEntry( Entry.INCLUDE_STEPNR, meta.isStepNrInFilename() ) );
+    list.add( StepInjectionUtil.getEntry( Entry.INCLUDE_PARTITION_NR, meta.isPartNrInFilename() ) );
+    list.add( StepInjectionUtil.getEntry( Entry.INCLUDE_DATE, meta.isDateInFilename() ) );
+    list.add( StepInjectionUtil.getEntry( Entry.INCLUDE_TIME, meta.isTimeInFilename() ) );
+    list.add( StepInjectionUtil.getEntry( Entry.SPECIFY_DATE_FORMAT, meta.isSpecifyingFormat() ) );
+    list.add( StepInjectionUtil.getEntry( Entry.DATE_TIME_FORMAT, meta.getDateTimeFormat() ) );
+    list.add( StepInjectionUtil.getEntry( Entry.ADD_FILENAME_TO_RESULT, meta.isAddToResultFiles() ) );
+
+    StepInjectionMetaEntry fieldsEntry = StepInjectionUtil.getEntry( Entry.EXTRACT_FIELDS );
+    list.add( fieldsEntry );
+    for( int i = 0; i < meta.getOutputFields().length; i++ ) {
+      StepInjectionMetaEntry fieldEntry = StepInjectionUtil.getEntry( Entry.EXTRACT_FIELD );
+      List<StepInjectionMetaEntry> details = fieldEntry.getDetails();
+      details.add( StepInjectionUtil.getEntry( Entry.EXTRACT_FIELDNAME, meta.getOutputFields()[i].getName() ) );
+      details.add( StepInjectionUtil.getEntry( Entry.EXTRACT_RENAME_TO, meta.getOutputFields()[i].getOutputName() ) );
+      details.add( StepInjectionUtil.getEntry( Entry.EXTRACT_TYPE, meta.getOutputFields()[i].getTdeType() ) );
+    }
+
+    return list;
   }
 
   public TDEOutputMeta getMeta() {

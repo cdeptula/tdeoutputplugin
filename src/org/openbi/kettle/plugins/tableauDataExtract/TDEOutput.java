@@ -26,7 +26,7 @@ package org.openbi.kettle.plugins.tableauDataExtract;
 import com.tableausoftware.DataExtract.Collation;
 import com.tableausoftware.DataExtract.Extract;
 import com.tableausoftware.DataExtract.TableDefinition;
-import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs2.FileObject;
 import org.pentaho.di.core.Const;
 import org.pentaho.di.core.ResultFile;
 import org.pentaho.di.core.exception.KettleException;

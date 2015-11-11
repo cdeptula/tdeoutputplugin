@@ -10,7 +10,8 @@ A Tableau Data Extract file is a compressed file specially optimized for Tableau
 System Requirements
 -------------------
 
-- Pentaho Data Integration 4.3 and above
+- Pentaho Data Integration 6.0 and above (Plugin version 1.2.0 and above)
+- Pentaho Data Integration 4.3 to 5.4 (Plugin version 1.1.0 and below)
 - Tableau 8.0, 8.1
 
 Installation
