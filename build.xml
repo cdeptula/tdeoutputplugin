@@ -45,11 +45,10 @@
         description="compile the source " >
 	
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac debug="on" debuglevel="lines" includeantruntime="false" target="1.6" source="1.6" srcdir="${src}" destdir="${build}">
+    <javac debug="on" debuglevel="lines" includeantruntime="false" target="1.7" source="1.7" srcdir="${src}" destdir="${build}">
 		<classpath>
 			<fileset dir="${tdeclasspath}/" >
-				<include name="dataextract.jar"/>
-				<include name="jna.jar"/>
+				<include name="**/*.jar"/>
 			</fileset>
 			<fileset dir="${pentahoclasspath}/" >
 				<include name="**/*.jar"/>
@@ -71,16 +70,23 @@
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
 	<mkdir dir="${dist}"/>
 	<mkdir dir="${dist}/TDEOutputPlugin"/>
-    <jar jarfile="${dist}/TDEOutputPlugin/TDEOutputPlugin.jar" basedir="${build}"/>
-	<copy file="plugin.xml" todir="${dist}/TDEOutputPlugin"/>
-	<copy file="tde.png" todir="${dist}/TDEOutputPlugin"/>
-	<copy file="${tdeclasspath}/dataextract.jar" todir="${dist}/TDEOutputPlugin"/>
-	<copy file="${tdeclasspath}/jna.jar" todir="${dist}/TDEOutputPlugin"/>
-	<copy file="LICENSE" todir="${dist}/TDEOutputPlugin"/>
+  <mkdir dir="${dist}/TDEOutputPlugin/lib"/>
+  <jar jarfile="${dist}/TDEOutputPlugin/TDEOutputPlugin.jar" basedir="${build}"/>
+	<copydir src="${tdeclasspath}" dest="${dist}/TDEOutputPlugin/lib" includes="**/*.jar"/>
+  <copy file="LICENSE" todir="${dist}/TDEOutputPlugin"/>
 	<copy file="README.md" todir="${dist}/TDEOutputPlugin"/>
 	<echoxml file="${dist}/TDEOutputPlugin/version.xml">
 		<version branch="${branch}" buildId="${buildnumber}">${version}</version>
 	</echoxml>
+  </target>
+
+  <target name="release" depends="dist" description="generate the release" >
+    <mkdir dir="release"/>
+    <copydir src="${dist}" dest="release" excludes="TDEOutputPlugin/lib/*.jar"/>
+    <mkdir dir="release/TDEOutputPlugin/lib"/>
+    <echo file="release/TDEOutputPlugin/lib/README" message="Place Tableau SDK jars in this directory."/>
+    <zip basedir="release" destfile="release/TDEOutputPlugin${version}.zip"/>
+    <delete dir="release/TDEOutputPlugin"/>
   </target>
 
   <target name="clean"
@@ -88,5 +94,6 @@
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
+    <delete dir="release"/>
   </target>
 </project>

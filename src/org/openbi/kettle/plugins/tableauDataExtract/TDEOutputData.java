@@ -23,9 +23,9 @@
 
 package org.openbi.kettle.plugins.tableauDataExtract;
 
-import com.tableausoftware.DataExtract.Extract;
-import com.tableausoftware.DataExtract.Table;
-import com.tableausoftware.DataExtract.TableDefinition;
+import com.tableausoftware.extract.Extract;
+import com.tableausoftware.extract.Table;
+import com.tableausoftware.extract.TableDefinition;
 import org.pentaho.di.core.row.RowMetaInterface;
 import org.pentaho.di.trans.step.BaseStepData;
 import org.pentaho.di.trans.step.StepDataInterface;
@@ -76,7 +76,7 @@ public class TDEOutputData extends BaseStepData implements StepDataInterface
 	
 	public TableDefinition tableDef;
 	
-	public com.tableausoftware.DataExtract.Row row;
+	public com.tableausoftware.extract.Row row;
 
     /**
 	 * 

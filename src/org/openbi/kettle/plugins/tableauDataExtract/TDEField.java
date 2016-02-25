@@ -23,13 +23,12 @@
 
 package org.openbi.kettle.plugins.tableauDataExtract;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.tableausoftware.common.Type;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.row.ValueMeta;
 
-import com.tableausoftware.DataExtract.Type;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Describes a single field in a text file

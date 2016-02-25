@@ -23,9 +23,9 @@
 
 package org.openbi.kettle.plugins.tableauDataExtract;
 
-import com.tableausoftware.DataExtract.Collation;
-import com.tableausoftware.DataExtract.Extract;
-import com.tableausoftware.DataExtract.TableDefinition;
+import com.tableausoftware.common.Collation;
+import com.tableausoftware.extract.Extract;
+import com.tableausoftware.extract.TableDefinition;
 import org.apache.commons.vfs2.FileObject;
 import org.pentaho.di.core.Const;
 import org.pentaho.di.core.ResultFile;
@@ -105,7 +105,7 @@ public class TDEOutput extends BaseStep implements StepInterface
 		
 		try {
 			RowMetaInterface inputRowMeta = getInputRowMeta();
-			data.row = new com.tableausoftware.DataExtract.Row(data.tableDef);
+			data.row = new com.tableausoftware.extract.Row(data.tableDef);
 			
 			for(int i = 0 ; i<meta.getOutputFields().length;i++)
 			{

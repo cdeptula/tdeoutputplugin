@@ -23,15 +23,11 @@
 
 package org.openbi.kettle.plugins.tableauDataExtract;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import org.pentaho.di.core.CheckResult;
 import org.pentaho.di.core.CheckResultInterface;
 import org.pentaho.di.core.Const;
 import org.pentaho.di.core.Counter;
+import org.pentaho.di.core.annotations.Step;
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.exception.KettleStepException;
@@ -53,10 +49,20 @@ import org.pentaho.di.trans.step.StepMetaInjectionInterface;
 import org.pentaho.di.trans.step.StepMetaInterface;
 import org.w3c.dom.Node;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 /*
  * Created on 2013-12-09
  *
  */
+@Step( id="TDEOutputPlugin", image="tde.png", name="Step.Name", description="Step.Description",
+	categoryDescription = "Category.Description", i18nPackageName = "org.openbi.kettle.plugins.tableauDataExtract",
+	documentationUrl = "https://github.com/cdeptula/tdeoutputplugin/wiki",
+	casesUrl = "https://github.com/cdeptula/tdeoutputplugin/issues",
+	isSeparateClassLoaderNeeded = true )
 public class TDEOutputMeta extends BaseStepMeta  implements StepMetaInterface
 {
 	private static Class<?> PKG = TDEOutputMeta.class; // for i18n purposes, needed by Translator2!!   $NON-NLS-1$
