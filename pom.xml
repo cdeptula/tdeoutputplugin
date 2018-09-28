@@ -1,0 +1,166 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.pentaho.di</groupId>
+  <artifactId>tde-output-plugin</artifactId>
+  <version>2.0.1</version>
+  <packaging>jar</packaging>
+
+  <name>tde-output-plugin</name>
+  <url>https://github.com/cdeptula/tdeoutputplugin</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <pentaho.kettle.version>8.1.0.0-365</pentaho.kettle.version>
+    <java.version>1.8</java.version>
+    <final.assembly.name>tde-output-plugin</final.assembly.name>
+    <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
+    <checkstyle.version>8.0</checkstyle.version>
+  </properties>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <descriptor>src/assembly/assembly.xml</descriptor>
+          <finalName>${final.assembly.name}</finalName>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <property name="deploy.dir" value="${basedir}/target/" />
+                <mkdir dir="${deploy.dir}"/>
+                <copy file="${project.build.directory}/${final.assembly.name}.zip" todir="${deploy.dir}"/>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${checkstyle.plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>verify</id>
+            <phase>verify</phase>
+            <configuration>
+              <configLocation>https://raw.githubusercontent.com/pentaho/pentaho-coding-standards/master/checkstyle/pentaho_checks.xml</configLocation>
+              <encoding>UTF-8</encoding>
+              <consoleOutput>true</consoleOutput>
+              <failsOnError>true</failsOnError>
+              <linkXRef>false</linkXRef>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-engine</artifactId>
+      <version>${pentaho.kettle.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.tableausoftware</groupId>
+      <artifactId>jna</artifactId>
+      <version>10.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.tableausoftware</groupId>
+      <artifactId>tableauextract</artifactId>
+      <version>10.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.tableausoftware</groupId>
+      <artifactId>tableaucommon</artifactId>
+      <version>10.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-ui-swt</artifactId>
+      <version>${pentaho.kettle.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+
+    <!--
+    Build the repository for the Tableau jars by downloading the Tableau SDK and running the following commands:
+    mvn deploy:deploy-file -DgroupId=com.tableausoftware -DartifactId=jna -Dversion=10.4 -DrepositoryId=project-maven-repo -DupdateReleaseInfo-true -Dfile=Tableau-SDK-C-Java-64Bit-10-3-14/Java/jna.jar -Durl=file:project-maven-repo
+ 6511  mvn deploy:deploy-file -DgroupId=com.tableausoftware -DartifactId=tableaucommon -Dversion=10.4 -DrepositoryId=project-maven-repo -DupdateReleaseInfo-true -Dfile=Tableau-SDK-C-Java-64Bit-10-3-14/Java/tableaucommon.jar -Durl=file:project-maven-repo
+ 6512  mvn deploy:deploy-file -DgroupId=com.tableausoftware -DartifactId=tableauextract -Dversion=10.4 -DrepositoryId=project-maven-repo -DupdateReleaseInfo-true -Dfile=Tableau-SDK-C-Java-64Bit-10-3-14/Java/tableauextract.jar -Durl=file:project-maven-repo
+ 6513  mvn deploy:deploy-file -DgroupId=com.tableausoftware -DartifactId=tableauserver -Dversion=10.4 -DrepositoryId=project-maven-repo -DupdateReleaseInfo-true -Dfile=Tableau-SDK-C-Java-64Bit-10-3-14/Java/tableauserver.jar -Durl=file:project-maven-repo
+    -->
+    <repository>
+      <id>project-maven-repo</id>
+      <url>file:///${project.basedir}/project-maven-repo</url>
+    </repository>
+    <repository>
+      <id>pentaho</id>
+      <url>http://ivy-nexus.pentaho.org/content/groups/omni</url>
+    </repository>
+  </repositories>
+
+
+</project>

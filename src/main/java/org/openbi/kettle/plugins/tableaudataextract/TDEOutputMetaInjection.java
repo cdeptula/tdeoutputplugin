@@ -21,7 +21,7 @@
  *
  ******************************************************************************/
 
-package org.openbi.kettle.plugins.tableauDataExtract;
+package org.openbi.kettle.plugins.tableaudataextract;
 
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.row.ValueMetaInterface;
@@ -47,19 +47,19 @@ public class TDEOutputMetaInjection implements StepMetaInjectionInterface {
       ValueMetaInterface.TYPE_STRING, "Append to the existing file? (Y/N)" ), CREATE_PARENT_FOLDER(
       ValueMetaInterface.TYPE_STRING, "Create parent folder? (Y/N)" ), INCLUDE_STEPNR(
       ValueMetaInterface.TYPE_STRING, "Include Step nr in filename? (Y/N)" ),
-      INCLUDE_PARTITION_NR( ValueMetaInterface.TYPE_STRING, "Include partition number in filename? (Y/N)" ), 
-      INCLUDE_DATE( ValueMetaInterface.TYPE_STRING, "Include date in filename? (Y/N)" ), 
+      INCLUDE_PARTITION_NR( ValueMetaInterface.TYPE_STRING, "Include partition number in filename? (Y/N)" ),
+      INCLUDE_DATE( ValueMetaInterface.TYPE_STRING, "Include date in filename? (Y/N)" ),
       INCLUDE_TIME( ValueMetaInterface.TYPE_STRING, "Include time in filename? (Y/N)" ),
-      SPECIFY_DATE_FORMAT( ValueMetaInterface.TYPE_STRING, "Specify date time format? (Y/N)" ), 
-      DATE_TIME_FORMAT(ValueMetaInterface.TYPE_STRING, "Date time format" ), ADD_FILENAME_TO_RESULT(
+      SPECIFY_DATE_FORMAT( ValueMetaInterface.TYPE_STRING, "Specify date time format? (Y/N)" ),
+      DATE_TIME_FORMAT( ValueMetaInterface.TYPE_STRING, "Date time format" ), ADD_FILENAME_TO_RESULT(
       ValueMetaInterface.TYPE_STRING, "Add filenames to result? (Y/N)" ),
-      
+
       EXTRACT_FIELDS( ValueMetaInterface.TYPE_NONE, "The fields to add to the extract" ), EXTRACT_FIELD(
         ValueMetaInterface.TYPE_NONE, "One field to add to the extract" ), EXTRACT_FIELDNAME(
         ValueMetaInterface.TYPE_STRING, "Field to add to the extract" ), EXTRACT_RENAME_TO(
         ValueMetaInterface.TYPE_STRING, "Rename field to" ),
-        EXTRACT_TYPE( ValueMetaInterface.TYPE_STRING,"Tableau type for the field (Boolean, Character String, Date, " +
-        "Date Time, Double, Duration, Integer, Unicode String)" );
+        EXTRACT_TYPE( ValueMetaInterface.TYPE_STRING, "Tableau type for the field (Boolean, Character String, Date, "
+          + "Date Time, Double, Duration, Integer, Unicode String)" );
 
     private int valueType;
     private String description;
@@ -101,7 +101,7 @@ public class TDEOutputMetaInjection implements StepMetaInjectionInterface {
     Entry[] topEntries =
       new Entry[] {
         Entry.EXTRACT_NAME, Entry.APPEND, Entry.CREATE_PARENT_FOLDER, Entry.INCLUDE_STEPNR,
-        Entry.INCLUDE_PARTITION_NR, Entry.INCLUDE_DATE, Entry.INCLUDE_TIME, 
+        Entry.INCLUDE_PARTITION_NR, Entry.INCLUDE_DATE, Entry.INCLUDE_TIME,
         Entry.SPECIFY_DATE_FORMAT, Entry.DATE_TIME_FORMAT, Entry.ADD_FILENAME_TO_RESULT, };
     for ( Entry topEntry : topEntries ) {
       all.add( new StepInjectionMetaEntry( topEntry.name(), topEntry.getValueType(), topEntry.getDescription() ) );
@@ -153,7 +153,7 @@ public class TDEOutputMetaInjection implements StepMetaInjectionInterface {
               String extractField = null;
               String extractRenameTo = null;
               String extractType = null;
-                            
+
               List<StepInjectionMetaEntry> entries = lookField.getDetails();
               for ( StepInjectionMetaEntry entry : entries ) {
                 Entry metaEntry = Entry.findEntry( entry.getKey() );
@@ -169,7 +169,7 @@ public class TDEOutputMetaInjection implements StepMetaInjectionInterface {
                     case EXTRACT_TYPE:
                       extractType = value;
                       break;
-                   default:
+                    default:
                       break;
                   }
                 }
@@ -209,7 +209,7 @@ public class TDEOutputMetaInjection implements StepMetaInjectionInterface {
           meta.setDateTimeFormat( lookValue );
           break;
         case ADD_FILENAME_TO_RESULT:
-        	meta.setAddToResultFiles( "Y".equalsIgnoreCase( lookValue ) );
+          meta.setAddToResultFiles( "Y".equalsIgnoreCase( lookValue ) );
           break;
         default:
           break;
@@ -224,13 +224,12 @@ public class TDEOutputMetaInjection implements StepMetaInjectionInterface {
       Iterator<String> itExtractFields = extractFields.iterator();
       Iterator<String> itExtractRenameTos = extractRenameTos.iterator();
       Iterator<String> itExtractTypes = extractTypes.iterator();
-      int i=0;
-      while(itExtractFields.hasNext())
-      {
-    	  tf[i] = new TDEField(itExtractFields.next(), itExtractRenameTos.next(), itExtractTypes.next());
-    	  i++;
+      int i = 0;
+      while ( itExtractFields.hasNext() ) {
+        tf[i] = new TDEField( itExtractFields.next(), itExtractRenameTos.next(), itExtractTypes.next() );
+        i++;
       }
-      meta.setOutputFields(tf);
+      meta.setOutputFields( tf );
     }
   }
 
@@ -250,7 +249,7 @@ public class TDEOutputMetaInjection implements StepMetaInjectionInterface {
 
     StepInjectionMetaEntry fieldsEntry = StepInjectionUtil.getEntry( Entry.EXTRACT_FIELDS );
     list.add( fieldsEntry );
-    for( int i = 0; i < meta.getOutputFields().length; i++ ) {
+    for ( int i = 0; i < meta.getOutputFields().length; i++ ) {
       StepInjectionMetaEntry fieldEntry = StepInjectionUtil.getEntry( Entry.EXTRACT_FIELD );
       List<StepInjectionMetaEntry> details = fieldEntry.getDetails();
       details.add( StepInjectionUtil.getEntry( Entry.EXTRACT_FIELDNAME, meta.getOutputFields()[i].getName() ) );

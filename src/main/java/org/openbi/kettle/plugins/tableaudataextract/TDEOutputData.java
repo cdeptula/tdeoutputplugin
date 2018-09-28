@@ -21,7 +21,7 @@
  *
  ******************************************************************************/
 
-package org.openbi.kettle.plugins.tableauDataExtract;
+package org.openbi.kettle.plugins.tableaudataextract;
 
 import com.tableausoftware.extract.Extract;
 import com.tableausoftware.extract.Table;
@@ -42,66 +42,62 @@ import java.util.List;
  * @author Chris
  * @since 2013-12-09
  */
-public class TDEOutputData extends BaseStepData implements StepDataInterface
-{
-	public int splitnr;
+public class TDEOutputData extends BaseStepData implements StepDataInterface {
+  public int splitnr;
 
-	public int fieldnrs[];
+  public int[] fieldnrs;
 
-	public NumberFormat nf;
-	public DecimalFormat df;
-	public DecimalFormatSymbols dfs;
-	
-	public SimpleDateFormat daf;
-	public DateFormatSymbols dafs;
+  public NumberFormat nf;
+  public DecimalFormat df;
+  public DecimalFormatSymbols dfs;
 
-	public SimpleDateFormat  defaultDateFormat;
-    public DateFormatSymbols defaultDateFormatSymbols;
+  public SimpleDateFormat daf;
+  public DateFormatSymbols dafs;
 
-    public Process cmdProc;
+  public SimpleDateFormat  defaultDateFormat;
+  public DateFormatSymbols defaultDateFormatSymbols;
 
-    public RowMetaInterface outputRowMeta;
+  public Process cmdProc;
 
-	public boolean oneFileOpened;
+  public RowMetaInterface outputRowMeta;
 
-	public List<String> previouslyOpenedFiles;
-	
-	public String fileName;
-	
-	public Boolean extractOpened;
-	
-	public Extract extract;
-	
-	public Table table;
-	
-	public TableDefinition tableDef;
-	
-	public com.tableausoftware.extract.Row row;
+  public boolean oneFileOpened;
 
-    /**
-	 * 
-	 */
-	public TDEOutputData()
-	{
-		super();
-		
-		nf = NumberFormat.getInstance();
-		df = (DecimalFormat)nf;
-		dfs=new DecimalFormatSymbols();
+  public List<String> previouslyOpenedFiles;
 
-		daf = new SimpleDateFormat();
-		dafs= new DateFormatSymbols();
-        
-        defaultDateFormat = new SimpleDateFormat();
-        defaultDateFormatSymbols = new DateFormatSymbols();
-        
-        previouslyOpenedFiles = new ArrayList<String>();
-       
-        cmdProc = null;
-        oneFileOpened=false;
+  public String fileName;
 
-        extractOpened = false;
-        
-       
-	}
+  public Boolean extractOpened;
+
+  public Extract extract;
+
+  public Table table;
+
+  public TableDefinition tableDef;
+
+  public com.tableausoftware.extract.Row row;
+
+  /**
+   * 
+   */
+  public TDEOutputData() {
+    super();
+
+    nf = NumberFormat.getInstance();
+    df = (DecimalFormat) nf;
+    dfs = new DecimalFormatSymbols();
+
+    daf = new SimpleDateFormat();
+    dafs = new DateFormatSymbols();
+
+    defaultDateFormat = new SimpleDateFormat();
+    defaultDateFormatSymbols = new DateFormatSymbols();
+
+    previouslyOpenedFiles = new ArrayList<String>();
+
+    cmdProc = null;
+    oneFileOpened = false;
+    extractOpened = false;
+
+  }
 }
