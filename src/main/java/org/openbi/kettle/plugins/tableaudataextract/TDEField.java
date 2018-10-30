@@ -26,6 +26,7 @@ package org.openbi.kettle.plugins.tableaudataextract;
 import com.tableausoftware.common.Type;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.row.ValueMeta;
+import org.pentaho.di.core.row.ValueMetaInterface;
 
 import java.util.Arrays;
 import java.util.List;
@@ -183,13 +184,13 @@ public class TDEField implements Cloneable {
   }
 
   public static int getDefaultTdeType( int type ) {
-    if ( type == ValueMeta.TYPE_BIGNUMBER || type == ValueMeta.TYPE_NUMBER ) {
+    if ( type == ValueMetaInterface.TYPE_BIGNUMBER || type == ValueMetaInterface.TYPE_NUMBER ) {
       return DOUBLE;
-    } else if ( type == ValueMeta.TYPE_BOOLEAN ) {
+    } else if ( type == ValueMetaInterface.TYPE_BOOLEAN ) {
       return BOOLEAN;
-    } else if ( type == ValueMeta.TYPE_INTEGER ) {
+    } else if ( type == ValueMetaInterface.TYPE_INTEGER ) {
       return INTEGER;
-    } else if ( type == ValueMeta.TYPE_DATE || type == ValueMeta.TYPE_TIMESTAMP ) {
+    } else if ( type == ValueMetaInterface.TYPE_DATE || type == ValueMetaInterface.TYPE_TIMESTAMP ) {
       return DATE_TIME;
     } else {
       return CHAR_STRING;

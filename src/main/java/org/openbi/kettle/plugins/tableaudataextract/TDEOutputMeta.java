@@ -34,6 +34,7 @@ import org.pentaho.di.core.exception.KettleStepException;
 import org.pentaho.di.core.exception.KettleXMLException;
 import org.pentaho.di.core.row.RowMetaInterface;
 import org.pentaho.di.core.row.ValueMetaInterface;
+import org.pentaho.di.core.util.Utils;
 import org.pentaho.di.core.variables.VariableSpace;
 import org.pentaho.di.core.xml.XMLHandler;
 import org.pentaho.di.i18n.BaseMessages;
@@ -58,7 +59,7 @@ import java.util.Map;
  * Created on 2013-12-09
  *
  */
-@Step( id = "TDEOutputPlugin", image = "tde.png", name = "Step.Name", description = "Step.Description",
+@Step( id = "TDEOutputPlugin", image = "TDE.svg", name = "Step.Name", description = "Step.Description",
   categoryDescription = "Category.Description", i18nPackageName = "org.openbi.kettle.plugins.tableaudataextract",
   documentationUrl = "https://github.com/cdeptula/tdeoutputplugin/wiki",
   casesUrl = "https://github.com/cdeptula/tdeoutputplugin/issues",
@@ -305,7 +306,7 @@ public class TDEOutputMeta extends BaseStepMeta  implements StepMetaInterface {
       dateTimeFormat             = XMLHandler.getTagValue( stepnode, "file", "date_time_format" );
 
       String AddToResultFiles = XMLHandler.getTagValue( stepnode, "file", "add_to_result_filenames" );
-      if ( Const.isEmpty( AddToResultFiles ) ) {
+      if ( Utils.isEmpty( AddToResultFiles ) ) {
         addToResultFilenames = true;
       } else {
         addToResultFilenames = "Y".equalsIgnoreCase( AddToResultFiles );
@@ -406,7 +407,7 @@ public class TDEOutputMeta extends BaseStepMeta  implements StepMetaInterface {
 
     Date now = new Date();
 
-    if ( meta.isSpecifyingFormat() && !Const.isEmpty( meta.getDateTimeFormat() ) ) {
+    if ( meta.isSpecifyingFormat() && !Utils.isEmpty( meta.getDateTimeFormat() ) ) {
       daf.applyPattern( meta.getDateTimeFormat() );
       String dt = daf.format( now );
       retval += dt;
@@ -495,7 +496,7 @@ public class TDEOutputMeta extends BaseStepMeta  implements StepMetaInterface {
 
 
       String AddToResultFiles = rep.getStepAttributeString( id_step, "add_to_result_filenames" );
-      if ( Const.isEmpty( AddToResultFiles ) ) {
+      if ( Utils.isEmpty( AddToResultFiles ) ) {
         addToResultFilenames = true;
       } else {
         addToResultFilenames = rep.getStepAttributeBoolean( id_step, "add_to_result_filenames" );
